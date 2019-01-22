@@ -10,5 +10,17 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 8081
-  }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          emitWarning: true
+        }
+      },
+    ],
+  },
 };

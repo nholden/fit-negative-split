@@ -1,4 +1,5 @@
 const EasyFit = require('easy-fit').default;
+
 const easyFit = new EasyFit({
   force: true,
   speedUnit: 'mph',
@@ -7,21 +8,21 @@ const easyFit = new EasyFit({
   elapsedRecordField: true,
   mode: 'list',
 });
-const fileUploadInput = document.getElementById("js-file-upload-input");
+const fileUploadInput = document.getElementById('js-file-upload-input');
 
-fileUploadInput.addEventListener("change", function(event) {
-  const file = this.files[0];
+fileUploadInput.addEventListener('change', (changeEvent) => {
+  const file = changeEvent.target.files[0];
   const reader = new FileReader();
 
-  reader.onloadend = function() {
-    easyFit.parse(this.result, function (error, data) {
+  reader.onloadend = (loadEvent) => {
+    easyFit.parse(loadEvent.target.result, (error, data) => {
       if (error) {
         console.log(error);
       } else {
         console.log(JSON.stringify(data));
       }
     });
-  }
+  };
 
   reader.readAsArrayBuffer(file);
 });
