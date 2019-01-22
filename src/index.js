@@ -9,6 +9,7 @@ const easyFit = new EasyFit({
   mode: 'list',
 });
 const fileUploadInput = document.getElementById('js-file-upload-input');
+const dataOutputDiv = document.getElementById('js-data-output');
 
 fileUploadInput.addEventListener('change', (changeEvent) => {
   const file = changeEvent.target.files[0];
@@ -17,9 +18,9 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
   reader.onloadend = (loadEvent) => {
     easyFit.parse(loadEvent.target.result, (error, data) => {
       if (error) {
-        console.log(error);
+        throw error;
       } else {
-        console.log(JSON.stringify(data));
+        dataOutputDiv.innerHTML = `Total timer time: ${data.activity.total_timer_time}`;
       }
     });
   };
