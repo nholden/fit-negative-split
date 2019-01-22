@@ -2,10 +2,14 @@
   "name": "pace-analyzer",
   "version": "1.0.0",
   "description": "Analyzes an activity's pace from a FIT file",
-  "main": "index.js",
+  "private": true,
   "author": "Nick Holden <nick.r.holden@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "easy-fit": "^0.0.8"
+  },
+  "devDependencies": {
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
   }
 }
