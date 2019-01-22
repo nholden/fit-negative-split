@@ -4,5 +4,8 @@
   "description": "Analyzes an activity's pace from a FIT file",
   "main": "index.js",
   "author": "Nick Holden <nick.r.holden@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "easy-fit": "^0.0.8"
+  }
 }
