@@ -1,3 +1,5 @@
+import Activity from './activity';
+
 const EasyFit = require('easy-fit').default;
 
 const easyFit = new EasyFit({
@@ -20,7 +22,8 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
       if (error) {
         throw error;
       } else {
-        dataOutputDiv.innerHTML = `Total timer time: ${data.activity.total_timer_time}`;
+        const activity = new Activity(data);
+        dataOutputDiv.innerHTML = `Total timer time: ${activity.totalTimerTime}`;
       }
     });
   };
