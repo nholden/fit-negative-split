@@ -23,7 +23,7 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
         throw error;
       } else {
         const activity = new Activity(data);
-        dataOutputDiv.innerHTML = `Total timer time: ${activity.totalTimerTime}`;
+        dataOutputDiv.innerHTML = `Distance at mid-elapsed time: ${activity.midTimeRecord.distance}`;
       }
     });
   };
