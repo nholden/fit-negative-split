@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import Activity from './activity';
+import Seconds from './seconds';
 
 const EasyFit = require('easy-fit').default;
 
@@ -23,7 +25,10 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
         throw error;
       } else {
         const activity = new Activity(data);
-        dataOutputDiv.innerHTML = `Distance at mid-elapsed time: ${activity.midTimeRecord.distance}`;
+        dataOutputDiv.innerHTML = `
+          Half: ${new Seconds(activity.records.midDistanceRecord.elapsed_time).formattedTime} at ${_.round(activity.records.midDistanceRecord.distance, 2)} mi<br>
+          Finish: ${new Seconds(activity.records.longestDistanceRecord.elapsed_time).formattedTime} at ${_.round(activity.records.longestDistanceRecord.distance, 2)} mi
+        `;
       }
     });
   };

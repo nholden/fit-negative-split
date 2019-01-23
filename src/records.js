@@ -3,10 +3,15 @@ export default class Records {
     this.recordsData = recordsData;
   }
 
-  closestRecordToElapsedTime(targetTime) {
-    const sortedRecords = this.recordsData.sort((a, b) => (
-      Math.abs(targetTime - a.elapsed_time) - Math.abs(targetTime - b.elapsed_time)
-    ));
-    return sortedRecords[0];
+  get midDistanceRecord() {
+    const midDistance = this.longestDistanceRecord.distance / 2;
+
+    return this.recordsData.sort((a, b) => (
+      Math.abs(midDistance - a.distance) - Math.abs(midDistance - b.distance)
+    ))[0];
+  }
+
+  get longestDistanceRecord() {
+    return this.recordsData.sort((a, b) => a.distance - b.distance)[this.recordsData.length - 1];
   }
 }
