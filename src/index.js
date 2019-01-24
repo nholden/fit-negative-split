@@ -25,9 +25,22 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
         throw error;
       } else {
         const activity = new Activity(data);
-        dataOutputDiv.innerHTML = `
-          Half: ${new Seconds(activity.records.midDistanceRecord.elapsed_time).formattedTime} at ${_.round(activity.records.midDistanceRecord.distance, 2)} mi<br>
-          Finish: ${new Seconds(activity.records.longestDistanceRecord.elapsed_time).formattedTime} at ${_.round(activity.records.longestDistanceRecord.distance, 2)} mi
+
+        if (activity.isNegativeSplit) {
+          dataOutputDiv.innerHTML = `
+            Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
+          `;
+        } else if (activity.isEvenSplit) {
+          dataOutputDiv.innerHTML = 'No. You ran even splits.<br>';
+        } else {
+          dataOutputDiv.innerHTML = `
+            No. You ran a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
+          `;
+        }
+
+        dataOutputDiv.innerHTML += `
+          First half: ${new Seconds(activity.firstHalfSplit.seconds).formattedTime} (${_.round(activity.firstHalfSplit.distance, 2)} mi)<br>
+          Second half: ${new Seconds(activity.secondHalfSplit.seconds).formattedTime} (${_.round(activity.secondHalfSplit.distance, 2)} mi)
         `;
       }
     });

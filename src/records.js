@@ -3,15 +3,19 @@ export default class Records {
     this.recordsData = recordsData;
   }
 
-  get midDistanceRecord() {
-    const midDistance = this.longestDistanceRecord.distance / 2;
+  get firstRecord() {
+    return this.recordsData.sort((a, b) => a.distance - b.distance)[0];
+  }
+
+  get halfDistanceRecord() {
+    const halfDistance = this.lastRecord.distance / 2;
 
     return this.recordsData.sort((a, b) => (
-      Math.abs(midDistance - a.distance) - Math.abs(midDistance - b.distance)
+      Math.abs(halfDistance - a.distance) - Math.abs(halfDistance - b.distance)
     ))[0];
   }
 
-  get longestDistanceRecord() {
+  get lastRecord() {
     return this.recordsData.sort((a, b) => a.distance - b.distance)[this.recordsData.length - 1];
   }
 }
