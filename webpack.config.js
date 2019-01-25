@@ -17,10 +17,20 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['babel-preset-env'],
+            },
+          },
+          {
+            loader: 'eslint-loader',
+            options: {
+              emitWarning: true,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
