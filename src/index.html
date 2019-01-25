@@ -1,12 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-yellow-700 bg-hero-lines-in-motion">
   <head>
     <title>Pace Analyzer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
   <body>
-    <input type="file" id="js-file-upload-input">
-    <div id="js-data-output"></div>
+    <div class="h-screen flex items-center justify-center">
+      <div class="bg-white p-5 rounded-lg shadow-lg max-w-sm text-black leading-normal">
+        <h1 class="py-4">
+          Did you run a negative split?
+        </h1>
+        <p class="py-2">
+          Upload a .FIT file from your Garmin and learn about how the first half
+          of your activity compared to the second half.
+        </p>
+        <input type="file" id="js-file-upload-input" class="text-white w-full my-4 p-4 bg-blue-400 rounded shadow">
+        <h2 id="js-summary-output" class="py-2 text-center hidden"></h2>
+        <div id="js-data-output" class="py-2 hidden"></div>
+      </div>
+    </div>
   </body>
 </html>

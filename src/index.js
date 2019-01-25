@@ -13,6 +13,7 @@ const easyFit = new EasyFit({
   mode: 'list',
 });
 const fileUploadInput = document.getElementById('js-file-upload-input');
+const summaryOutputDiv = document.getElementById('js-summary-output');
 const dataOutputDiv = document.getElementById('js-data-output');
 
 fileUploadInput.addEventListener('change', (changeEvent) => {
@@ -27,21 +28,24 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
         const activity = new Activity(data);
 
         if (activity.isNegativeSplit) {
-          dataOutputDiv.innerHTML = `
+          summaryOutputDiv.innerHTML = `
             Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
           `;
         } else if (activity.isEvenSplit) {
-          dataOutputDiv.innerHTML = 'No. You ran even splits.<br>';
+          summaryOutputDiv.innerHTML = 'No. You ran even splits.<br>';
         } else {
-          dataOutputDiv.innerHTML = `
+          summaryOutputDiv.innerHTML = `
             No. You ran a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
           `;
         }
 
-        dataOutputDiv.innerHTML += `
+        dataOutputDiv.innerHTML = `
           First half: ${new Seconds(activity.firstHalfSplit.seconds).formattedTime} (${_.round(activity.firstHalfSplit.distance, 2)} mi)<br>
           Second half: ${new Seconds(activity.secondHalfSplit.seconds).formattedTime} (${_.round(activity.secondHalfSplit.distance, 2)} mi)
         `;
+
+        summaryOutputDiv.classList.remove('hidden');
+        dataOutputDiv.classList.remove('hidden');
       }
     });
   };

@@ -4874,6 +4874,13 @@ table@^5.0.2:
     slice-ansi "2.0.0"
     string-width "^2.1.1"
 
+tailwind-heropatterns@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/tailwind-heropatterns/-/tailwind-heropatterns-0.0.7.tgz#99b185c3cd15f71eabb5f4b39011b2c856d592ee"
+  integrity sha512-MoAzXqnfCfmhvxwB7q7R9FdPcYnyg7UEcTqLKasXhNvVsWX/zGkm49Il4avGq+LA/imBgTjva8AUwaXv7vqbYA==
+  dependencies:
+    lodash "^4.17.11"
+
 tailwindcss@^0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-0.7.4.tgz#fb7926821d42eacdc12e6621a49d21f37a3ff9e9"
