@@ -1,5 +1,11 @@
+import _ from 'lodash';
+
 export default class Records {
   constructor(recordsData) {
+    if (!Array.isArray(recordsData) || !_.has(recordsData[0], 'distance')) {
+      throw new TypeError('recordsData must be an array of objects containing record data');
+    }
+
     this.recordsData = recordsData;
   }
 
