@@ -2,6 +2,10 @@ import _ from 'lodash';
 
 export default class Seconds {
   constructor(seconds) {
+    if (!Number.isInteger(seconds) || seconds < 0) {
+      throw new TypeError('seconds must be a positive integer');
+    }
+
     this.seconds = seconds;
   }
 
