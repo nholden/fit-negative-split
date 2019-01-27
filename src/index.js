@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import Activity from './activity';
-import Seconds from './seconds';
+import Activity from './modules/activity';
+import Seconds from './modules/seconds';
 
 const EasyFit = require('easy-fit').default;
 

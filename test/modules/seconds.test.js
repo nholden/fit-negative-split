@@ -1,4 +1,4 @@
-const Seconds = require('../src/seconds').default;
+const Seconds = require('../../src/modules/seconds').default;
 
 test('displays zero', () => {
   expect(new Seconds(0).formattedTime).toBe('0:00');
