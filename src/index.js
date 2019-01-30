@@ -12,12 +12,11 @@ const easyFit = new EasyFit({
   elapsedRecordField: true,
   mode: 'list',
 });
-const fileUploadInput = document.getElementById('js-file-upload-input');
+const fileUploadTarget = document.getElementById('js-file-upload-target');
 const summaryOutputDiv = document.getElementById('js-summary-output');
 const dataOutputDiv = document.getElementById('js-data-output');
 
-fileUploadInput.addEventListener('change', (changeEvent) => {
-  const file = changeEvent.target.files[0];
+function processFile(file) {
   const reader = new FileReader();
 
   reader.onloadend = (loadEvent) => {
@@ -51,4 +50,20 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
   };
 
   reader.readAsArrayBuffer(file);
+}
+
+fileUploadTarget.addEventListener('dragenter', (dragenterEvent) => {
+  dragenterEvent.stopPropagation();
+  dragenterEvent.preventDefault();
+});
+
+fileUploadTarget.addEventListener('dragover', (dragoverEvent) => {
+  dragoverEvent.stopPropagation();
+  dragoverEvent.preventDefault();
+});
+
+fileUploadTarget.addEventListener('drop', (dropEvent) => {
+  dropEvent.stopPropagation();
+  dropEvent.preventDefault();
+  processFile(dropEvent.dataTransfer.files[0]);
 });
