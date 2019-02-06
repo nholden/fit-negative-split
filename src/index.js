@@ -1,8 +1,7 @@
 import _ from 'lodash';
+import EasyFit from 'easy-fit';
 import Activity from './modules/activity';
 import Seconds from './modules/seconds';
-
-const EasyFit = require('easy-fit').default;
 
 const easyFit = new EasyFit({
   force: true,
