@@ -13,6 +13,7 @@ const easyFit = new EasyFit({
   mode: 'list',
 });
 const fileUploadTarget = document.getElementById('js-file-upload-target');
+const fileUploadInput = document.getElementById('js-file-upload-input');
 const summaryOutputDiv = document.getElementById('js-summary-output');
 const dataOutputDiv = document.getElementById('js-data-output');
 
@@ -66,4 +67,14 @@ fileUploadTarget.addEventListener('drop', (dropEvent) => {
   dropEvent.stopPropagation();
   dropEvent.preventDefault();
   processFile(dropEvent.dataTransfer.files[0]);
+});
+
+fileUploadTarget.addEventListener('click', (clickEvent) => {
+  clickEvent.stopPropagation();
+  clickEvent.preventDefault();
+  fileUploadInput.click();
+});
+
+fileUploadInput.addEventListener('change', (changeEvent) => {
+  processFile(changeEvent.target.files[0]);
 });
