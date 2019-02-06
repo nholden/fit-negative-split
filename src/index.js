@@ -56,6 +56,13 @@ function processFile(file) {
 fileUploadTarget.addEventListener('dragenter', (dragenterEvent) => {
   dragenterEvent.stopPropagation();
   dragenterEvent.preventDefault();
+  dragenterEvent.target.classList.remove('bg-yellow-1000');
+  dragenterEvent.target.classList.add('bg-yellow-900');
+});
+
+fileUploadTarget.addEventListener('dragleave', (dragleaveEvent) => {
+  dragleaveEvent.target.classList.remove('bg-yellow-900');
+  dragleaveEvent.target.classList.add('bg-yellow-1000');
 });
 
 fileUploadTarget.addEventListener('dragover', (dragoverEvent) => {
@@ -66,6 +73,8 @@ fileUploadTarget.addEventListener('dragover', (dragoverEvent) => {
 fileUploadTarget.addEventListener('drop', (dropEvent) => {
   dropEvent.stopPropagation();
   dropEvent.preventDefault();
+  dropEvent.target.classList.remove('bg-yellow-900');
+  dropEvent.target.classList.add('bg-yellow-1000');
   processFile(dropEvent.dataTransfer.files[0]);
 });
 
