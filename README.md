@@ -1,6 +1,8 @@
 # FIT Negative Split
 Did the activity in your Garmin FIT file have a negative split? Try it out at https://fitnegativesplit.mondaymiles.com.
 
+![fit-negative-split-demo](https://user-images.githubusercontent.com/7942714/52526980-2c269580-2c76-11e9-8ab1-1a8a3a8e23dc.gif)
+
 ## Installation
 ```bash
 git clone git://github.com/fit-negative-split
