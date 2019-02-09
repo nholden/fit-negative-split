@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import FitFile from './modules/fit_file';
-import Seconds from './modules/seconds';
 
 const fileUploadTarget = document.getElementById('js-file-upload-target');
 const fileUploadInput = document.getElementById('js-file-upload-input');
@@ -21,8 +19,10 @@ function updateResults(activity) {
   }
 
   dataOutputDiv.innerHTML = `
-    First half: ${new Seconds(activity.firstHalfSplit.seconds).formattedTime} (${_.round(activity.firstHalfSplit.distance, 2)} mi)<br>
-    Second half: ${new Seconds(activity.secondHalfSplit.seconds).formattedTime} (${_.round(activity.secondHalfSplit.distance, 2)} mi)
+    First half: ${activity.firstHalfSplitFormattedTime}
+    (${activity.firstHalfSplitFormattedDistance})<br>
+    Second half: ${activity.secondHalfSplitFormattedTime}
+    (${activity.secondHalfSplitFormattedDistance})
   `;
 
   summaryOutputDiv.classList.remove('hidden');

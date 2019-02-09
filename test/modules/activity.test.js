@@ -29,3 +29,19 @@ test('calculates second half split', () => {
 test('formats split difference time', () => {
   expect(activity.halfSplitDifferenceFormattedTime).toBe('1:33');
 });
+
+test('formats first half split time', () => {
+  expect(activity.firstHalfSplitFormattedTime).toBe('11:26');
+});
+
+test('formats second half split time', () => {
+  expect(activity.secondHalfSplitFormattedTime).toBe('9:53');
+});
+
+test('formats first half split distance', () => {
+  expect(activity.firstHalfSplitFormattedDistance).toBe('1.16 mi');
+});
+
+test('formats second half split distance', () => {
+  expect(activity.secondHalfSplitFormattedDistance).toBe('1.16 mi');
+});

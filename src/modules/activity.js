@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Records from './records';
 import Seconds from './seconds';
 import Split from './split';
@@ -33,5 +34,21 @@ export default class Activity {
     );
 
     return new Seconds(halfSplitDifferenceSeconds).formattedTime;
+  }
+
+  get firstHalfSplitFormattedTime() {
+    return new Seconds(this.firstHalfSplit.seconds).formattedTime;
+  }
+
+  get secondHalfSplitFormattedTime() {
+    return new Seconds(this.secondHalfSplit.seconds).formattedTime;
+  }
+
+  get firstHalfSplitFormattedDistance() {
+    return `${_.round(this.firstHalfSplit.distance, 2)} mi`;
+  }
+
+  get secondHalfSplitFormattedDistance() {
+    return `${_.round(this.secondHalfSplit.distance, 2)} mi`;
   }
 }
