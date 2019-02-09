@@ -16,7 +16,7 @@ const fileUploadInput = document.getElementById('js-file-upload-input');
 const summaryOutputDiv = document.getElementById('js-summary-output');
 const dataOutputDiv = document.getElementById('js-data-output');
 
-function processFile(file) {
+function fetchActivity(file, callback) {
   const reader = new FileReader();
 
   reader.onloadend = (loadEvent) => {
@@ -24,32 +24,34 @@ function processFile(file) {
       if (error) {
         throw error;
       } else {
-        const activity = new Activity(data);
-
-        if (activity.isNegativeSplit) {
-          summaryOutputDiv.innerHTML = `
-            Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
-          `;
-        } else if (activity.isEvenSplit) {
-          summaryOutputDiv.innerHTML = 'No. You ran even splits.<br>';
-        } else {
-          summaryOutputDiv.innerHTML = `
-            No. You ran a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
-          `;
-        }
-
-        dataOutputDiv.innerHTML = `
-          First half: ${new Seconds(activity.firstHalfSplit.seconds).formattedTime} (${_.round(activity.firstHalfSplit.distance, 2)} mi)<br>
-          Second half: ${new Seconds(activity.secondHalfSplit.seconds).formattedTime} (${_.round(activity.secondHalfSplit.distance, 2)} mi)
-        `;
-
-        summaryOutputDiv.classList.remove('hidden');
-        dataOutputDiv.classList.remove('hidden');
+        callback(new Activity(data));
       }
     });
   };
 
   reader.readAsArrayBuffer(file);
+}
+
+function updateDom(activity) {
+  if (activity.isNegativeSplit) {
+    summaryOutputDiv.innerHTML = `
+      Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
+    `;
+  } else if (activity.isEvenSplit) {
+    summaryOutputDiv.innerHTML = 'No. You ran even splits.<br>';
+  } else {
+    summaryOutputDiv.innerHTML = `
+      No. You ran a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
+    `;
+  }
+
+  dataOutputDiv.innerHTML = `
+    First half: ${new Seconds(activity.firstHalfSplit.seconds).formattedTime} (${_.round(activity.firstHalfSplit.distance, 2)} mi)<br>
+    Second half: ${new Seconds(activity.secondHalfSplit.seconds).formattedTime} (${_.round(activity.secondHalfSplit.distance, 2)} mi)
+  `;
+
+  summaryOutputDiv.classList.remove('hidden');
+  dataOutputDiv.classList.remove('hidden');
 }
 
 fileUploadTarget.addEventListener('dragenter', (dragenterEvent) => {
@@ -74,7 +76,7 @@ fileUploadTarget.addEventListener('drop', (dropEvent) => {
   dropEvent.preventDefault();
   dropEvent.target.classList.remove('bg-yellow-900');
   dropEvent.target.classList.add('bg-yellow-1000');
-  processFile(dropEvent.dataTransfer.files[0]);
+  fetchActivity(dropEvent.dataTransfer.files[0], updateDom);
 });
 
 fileUploadTarget.addEventListener('click', (clickEvent) => {
@@ -84,5 +86,5 @@ fileUploadTarget.addEventListener('click', (clickEvent) => {
 });
 
 fileUploadInput.addEventListener('change', (changeEvent) => {
-  processFile(changeEvent.target.files[0]);
+  fetchActivity(changeEvent.target.files[0], updateDom);
 });
