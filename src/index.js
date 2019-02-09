@@ -8,13 +8,13 @@ const dataOutputDiv = document.getElementById('js-data-output');
 function updateResults(activity) {
   if (activity.isNegativeSplit) {
     summaryOutputDiv.innerHTML = `
-      Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
+      Yes! You had a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
     `;
   } else if (activity.isEvenSplit) {
-    summaryOutputDiv.innerHTML = 'No. You ran even splits.<br>';
+    summaryOutputDiv.innerHTML = 'No. You had even splits.<br>';
   } else {
     summaryOutputDiv.innerHTML = `
-      No. You ran a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
+      No. You had a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
     `;
   }
 
