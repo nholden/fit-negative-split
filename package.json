@@ -1,7 +1,7 @@
 {
-  "name": "pace-analyzer",
+  "name": "fit-negative-split",
   "version": "1.0.0",
-  "description": "Analyzes an activity's pace from a FIT file",
+  "description": "Did the activity in your Garmin FIT file have a negative split?",
   "private": true,
   "author": "Nick Holden <nick.r.holden@gmail.com>",
   "license": "MIT",

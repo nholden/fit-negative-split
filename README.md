@@ -1,10 +1,10 @@
-# FIT Pace Analyzer
-Analyzes your pace from a Garmin FIT file. Try it out at https://fitpace.mondaymiles.com.
+# FIT Negative Split
+Did the activity in your Garmin FIT file have a negative split? Try it out at https://fitnegativesplit.mondaymiles.com.
 
 ## Installation
 ```bash
-git clone git://github.com/fit-pace-analyzer
-cd fit-pace-analyzer
+git clone git://github.com/fit-negative-split
+cd fit-negative-split
 yarn
 ```
 
@@ -15,7 +15,7 @@ Start this long-running process in a new terminal window:
 yarn start
 ```
 
-FIT Pace Analyzer should be accessible at http://localhost:8081.
+FIT Negative Split should be accessible at http://localhost:8081.
 
 ## Testing
 ```bash
