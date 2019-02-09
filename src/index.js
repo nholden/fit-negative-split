@@ -1,38 +1,13 @@
 import _ from 'lodash';
-import EasyFit from 'easy-fit';
-import Activity from './modules/activity';
+import FitFile from './modules/fit_file';
 import Seconds from './modules/seconds';
 
-const easyFit = new EasyFit({
-  force: true,
-  speedUnit: 'mph',
-  lengthUnit: 'mi',
-  temperatureUnit: 'fahrenheit',
-  elapsedRecordField: true,
-  mode: 'list',
-});
 const fileUploadTarget = document.getElementById('js-file-upload-target');
 const fileUploadInput = document.getElementById('js-file-upload-input');
 const summaryOutputDiv = document.getElementById('js-summary-output');
 const dataOutputDiv = document.getElementById('js-data-output');
 
-function fetchActivity(file, callback) {
-  const reader = new FileReader();
-
-  reader.onloadend = (loadEvent) => {
-    easyFit.parse(loadEvent.target.result, (error, data) => {
-      if (error) {
-        throw error;
-      } else {
-        callback(new Activity(data));
-      }
-    });
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-function updateDom(activity) {
+function updateResults(activity) {
   if (activity.isNegativeSplit) {
     summaryOutputDiv.innerHTML = `
       Yes! You ran a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
@@ -76,7 +51,7 @@ fileUploadTarget.addEventListener('drop', (dropEvent) => {
   dropEvent.preventDefault();
   dropEvent.target.classList.remove('bg-yellow-900');
   dropEvent.target.classList.add('bg-yellow-1000');
-  fetchActivity(dropEvent.dataTransfer.files[0], updateDom);
+  new FitFile(dropEvent.dataTransfer.files[0]).fetchActivity(updateResults);
 });
 
 fileUploadTarget.addEventListener('click', (clickEvent) => {
@@ -86,5 +61,5 @@ fileUploadTarget.addEventListener('click', (clickEvent) => {
 });
 
 fileUploadInput.addEventListener('change', (changeEvent) => {
-  fetchActivity(changeEvent.target.files[0], updateDom);
+  new FitFile(changeEvent.target.files[0]).fetchActivity(updateResults);
 });
