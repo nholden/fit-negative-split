@@ -1,7 +1,7 @@
 {
-  "name": "fit-negative-split",
+  "name": "fit-split",
   "version": "1.0.0",
-  "description": "Did the activity in your Garmin FIT file have a negative split?",
+  "description": "Calculates custom splits from a Garmin FIT file",
   "private": true,
   "author": "Nick Holden <nick.r.holden@gmail.com>",
   "license": "MIT",

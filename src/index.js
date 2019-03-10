@@ -2,31 +2,65 @@ import FitFile from './modules/fit_file';
 
 const fileUploadTarget = document.getElementById('js-file-upload-target');
 const fileUploadInput = document.getElementById('js-file-upload-input');
-const summaryOutputDiv = document.getElementById('js-summary-output');
+const fileUploadStatusSpan = document.getElementById('js-file-upload-status');
 const dataOutputDiv = document.getElementById('js-data-output');
+const quantityRadio = document.getElementById('js-quantity-radio');
+const distanceRadio = document.getElementById('js-distance-radio');
+const quantityFieldsDiv = document.getElementById('js-quantity-fields');
+const distanceFieldsDiv = document.getElementById('js-distance-fields');
+const calculateButton = document.getElementById('js-calculate-button');
 
-function updateResults(activity) {
-  if (activity.isNegativeSplit) {
-    summaryOutputDiv.innerHTML = `
-      Yes! You had a ${(activity.halfSplitDifferenceFormattedTime)} negative split.<br>
-    `;
-  } else if (activity.isEvenSplit) {
-    summaryOutputDiv.innerHTML = 'No. You had even splits.<br>';
-  } else {
-    summaryOutputDiv.innerHTML = `
-      No. You had a ${activity.halfSplitDifferenceFormattedTime} positive split.<br>
-    `;
-  }
-
+function updateResults() {
   dataOutputDiv.innerHTML = `
-    First half: ${activity.firstHalfSplitFormattedTime}
-    (${activity.firstHalfSplitFormattedDistance})<br>
-    Second half: ${activity.secondHalfSplitFormattedTime}
-    (${activity.secondHalfSplitFormattedDistance})
+    First half: ${window.activity.firstHalfSplitFormattedTime}
+    (${window.activity.firstHalfSplitFormattedDistance})<br>
+    Second half: ${window.activity.secondHalfSplitFormattedTime}
+    (${window.activity.secondHalfSplitFormattedDistance})
   `;
 
-  summaryOutputDiv.classList.remove('hidden');
   dataOutputDiv.classList.remove('hidden');
+}
+
+function updateFileUploadCopy() {
+  if (window.activity) {
+    fileUploadStatusSpan.innerHTML = '✅ Got it!';
+  } else {
+    fileUploadStatusSpan.innerHTML = 'Drop your .FIT file';
+  }
+}
+
+function enableButton() {
+  calculateButton.classList.add('hover:bg-blue-300');
+  calculateButton.classList.remove('opacity-50');
+  calculateButton.classList.remove('cursor-not-allowed');
+  calculateButton.removeAttribute('disabled');
+}
+
+function disableButton() {
+  calculateButton.classList.remove('hover:bg-blue-300');
+  calculateButton.classList.add('opacity-50');
+  calculateButton.classList.add('cursor-not-allowed');
+  calculateButton.setAttribute('disabled', 'disabled');
+}
+
+function updateButtonStatus() {
+  if (window.activity) {
+    enableButton();
+  } else {
+    disableButton();
+  }
+}
+
+function updateActivity(file) {
+  fileUploadStatusSpan.innerHTML = 'Uploading...';
+  disableButton();
+  new FitFile(file).fetchActivity((fetchedActivity) => {
+    window.activity = fetchedActivity;
+    setTimeout(() => {
+      updateFileUploadCopy();
+      updateButtonStatus();
+    }, 150);
+  });
 }
 
 fileUploadTarget.addEventListener('dragenter', (dragenterEvent) => {
@@ -51,7 +85,7 @@ fileUploadTarget.addEventListener('drop', (dropEvent) => {
   dropEvent.preventDefault();
   dropEvent.target.classList.remove('bg-yellow-900');
   dropEvent.target.classList.add('bg-yellow-1000');
-  new FitFile(dropEvent.dataTransfer.files[0]).fetchActivity(updateResults);
+  updateActivity(dropEvent.dataTransfer.files[0]);
 });
 
 fileUploadTarget.addEventListener('click', (clickEvent) => {
@@ -61,5 +95,19 @@ fileUploadTarget.addEventListener('click', (clickEvent) => {
 });
 
 fileUploadInput.addEventListener('change', (changeEvent) => {
-  new FitFile(changeEvent.target.files[0]).fetchActivity(updateResults);
+  updateActivity(changeEvent.target.files[0]);
+});
+
+quantityRadio.addEventListener('change', () => {
+  quantityFieldsDiv.classList.remove('hidden');
+  distanceFieldsDiv.classList.add('hidden');
+});
+
+distanceRadio.addEventListener('change', () => {
+  distanceFieldsDiv.classList.remove('hidden');
+  quantityFieldsDiv.classList.add('hidden');
+});
+
+calculateButton.addEventListener('click', () => {
+  updateResults();
 });

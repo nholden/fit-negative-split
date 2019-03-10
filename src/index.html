@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" class="bg-yellow-700 bg-hero-lines-in-motion">
   <head>
-    <title>FIT Negative Split</title>
+    <title>FIT Splits</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
@@ -9,18 +9,55 @@
     <div class="h-screen flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-lg max-w-md text-black leading-normal">
         <h1 class="py-4">
-          Did you negative split?
+          FIT Splits
         </h1>
-        <p class="py-2">
-          Upload a .FIT file from your Garmin and learn about how the first half
-          of your activity compared to the second half.
-        </p>
-        <div id="js-file-upload-target" class="text-grey-500 text-sm font-light cursor-pointer text-center w-full my-4 p-10 bg-yellow-1000 hover:bg-yellow-900 border-2 border-dashed border-blue-400 rounded shadow-inner">
-          Drop your .FIT file
-        </div>
-        <input type="file" id="js-file-upload-input" class="hidden">
-        <h2 id="js-summary-output" class="py-2 hidden"></h2>
-        <div id="js-data-output" class="py-2 hidden"></div>
+
+        <section class="py-4">
+          <h2>Step 1: Upload a .FIT file</h2>
+          <p class="py-2">
+            Upload a .FIT file from your Garmin and learn about how the first half
+            of your activity compared to the second half.
+          </p>
+          <div id="js-file-upload-target" class="text-grey-500 text-sm font-light cursor-pointer text-center w-full my-2 p-10 bg-yellow-1000 hover:bg-yellow-900 border-2 border-dashed border-blue-400 rounded shadow-inner">
+            <span id="js-file-upload-status">Drop your .FIT file</span>
+          </div>
+          <input type="file" id="js-file-upload-input" class="hidden">
+        </section>
+
+        <section class="py-4">
+          <h2 class="py-2">Step 2: Choose splits</h2>
+          <fieldset class="py-2">
+            <legend>Let me specify...</legend>
+            <div>
+              <input type="radio" name="splits-type" id="js-quantity-radio">
+              <label for="js-quantity-radio">The number of splits</label>
+            </div>
+            <div>
+              <input type="radio" name="splits-type" id="js-distance-radio">
+              <label for="js-distance-radio">The distance of each split</label>
+            </div>
+          </fieldset>
+          <div id="js-quantity-fields" class="hidden py-2">
+            <label for="quantity" class="block">How many splits?</label>
+            <input type="number" id="quantity" min="0" autocomplete="off">
+          </div>
+          <div id="js-distance-fields" class="hidden py-2">
+            <label for="distance" class="block">How long should each split be?</label>
+            <input type="number" id="distance" min="0" autocomplete="off">
+            <select aria-label="units">
+              <option>miles</option>
+              <option>kilometers</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="py-4">
+          <h2 class="py-2">Step 3: See your results</h2>
+          <button id="js-calculate-button" class="w-full my-2 py-4 bg-blue-400 rounded shadow-md text-white font-semibold opacity-50 cursor-not-allowed" disabled>
+            Calculate splits
+          </button>
+          <div id="js-data-output" class="py-2 hidden"></div>
+        </section>
       </div>
     </div>
   </body>

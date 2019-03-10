@@ -12,14 +12,6 @@ export default class Activity {
     return new Records(this.fitData.records);
   }
 
-  get isNegativeSplit() {
-    return this.firstHalfSplit.seconds > this.secondHalfSplit.seconds;
-  }
-
-  get isEvenSplit() {
-    return this.firstHalfSplit.seconds === this.secondHalfSplit.seconds;
-  }
-
   get firstHalfSplit() {
     return new Split(this.records.firstRecord, this.records.halfDistanceRecord);
   }

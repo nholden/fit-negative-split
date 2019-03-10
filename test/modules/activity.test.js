@@ -8,14 +8,6 @@ test('fetches records', () => {
   expect(activity.records.lastRecord.elapsed_time).toBe(1279);
 });
 
-test('calculates whether negative split', () => {
-  expect(activity.isNegativeSplit).toBe(true);
-});
-
-test('calculates whether even split', () => {
-  expect(activity.isEvenSplit).toBe(false);
-});
-
 test('calculates first half split', () => {
   expect(activity.firstHalfSplit.seconds).toBe(686);
   expect(activity.firstHalfSplit.distance).toBeCloseTo(1.16);
