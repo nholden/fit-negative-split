@@ -24,4 +24,18 @@ export default class Records {
   get lastRecord() {
     return this.recordsData.sort((a, b) => a.distance - b.distance)[this.recordsData.length - 1];
   }
+
+  get sortedRecords() {
+    return this.recordsData.sort((a, b) => a.distance - b.distance);
+  }
+
+  evenDistances(quantity) {
+    return _.range(quantity + 1).map((recordIndex) => {
+      const targetDistance = this.lastRecord.distance * (recordIndex / quantity);
+
+      return this.recordsData.sort((a, b) => (
+        Math.abs(targetDistance - a.distance) - Math.abs(targetDistance - b.distance)
+      ))[0];
+    });
+  }
 }

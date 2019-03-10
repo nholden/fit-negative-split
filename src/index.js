@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import FitFile from './modules/fit_file';
+import Seconds from './modules/seconds';
 
 const fileUploadTarget = document.getElementById('js-file-upload-target');
 const fileUploadInput = document.getElementById('js-file-upload-input');
@@ -8,17 +10,26 @@ const quantityRadio = document.getElementById('js-quantity-radio');
 const distanceRadio = document.getElementById('js-distance-radio');
 const quantityFieldsDiv = document.getElementById('js-quantity-fields');
 const distanceFieldsDiv = document.getElementById('js-distance-fields');
+const quantityInput = document.getElementById('js-quantity');
 const calculateButton = document.getElementById('js-calculate-button');
 
 function updateResults() {
-  dataOutputDiv.innerHTML = `
-    First half: ${window.activity.firstHalfSplitFormattedTime}
-    (${window.activity.firstHalfSplitFormattedDistance})<br>
-    Second half: ${window.activity.secondHalfSplitFormattedTime}
-    (${window.activity.secondHalfSplitFormattedDistance})
-  `;
-
-  dataOutputDiv.classList.remove('hidden');
+  if (quantityRadio.checked) {
+    const tableRows = window
+      .activity
+      .splits({ quantity: parseInt(quantityInput.value, 10) })
+      .map(split => (
+        `<tr><td>${_.round(split.distance, 2)} mi</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
+      ));
+    dataOutputDiv.innerHTML = `<table>
+        <tr>
+          <th>Distance</th>
+          <th>Time</th>
+        </tr>
+        ${tableRows.join('')}
+      </table>`;
+    dataOutputDiv.classList.remove('hidden');
+  }
 }
 
 function updateFileUploadCopy() {

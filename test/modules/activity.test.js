@@ -37,3 +37,23 @@ test('formats first half split distance', () => {
 test('formats second half split distance', () => {
   expect(activity.secondHalfSplitFormattedDistance).toBe('1.16 mi');
 });
+
+test('returns 2 splits', () => {
+  const splits = activity.splits({ quantity: 2 });
+  expect(splits.length).toBe(2);
+  expect(splits[0].seconds).toBe(686);
+  expect(splits[0].distance).toBeCloseTo(1.16);
+  expect(splits[1].seconds).toBe(593);
+  expect(splits[1].distance).toBeCloseTo(1.16);
+});
+
+test('returns 3 splits', () => {
+  const splits = activity.splits({ quantity: 3 });
+  expect(splits.length).toBe(3)
+  expect(splits[0].seconds).toBe(489);
+  expect(splits[0].distance).toBeCloseTo(0.77);
+  expect(splits[1].seconds).toBe(399);
+  expect(splits[1].distance).toBeCloseTo(0.78);
+  expect(splits[2].seconds).toBe(391);
+  expect(splits[2].distance).toBeCloseTo(0.77);
+});

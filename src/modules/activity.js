@@ -43,4 +43,21 @@ export default class Activity {
   get secondHalfSplitFormattedDistance() {
     return `${_.round(this.secondHalfSplit.distance, 2)} mi`;
   }
+
+  splits({ quantity }) {
+    const splits = [];
+
+    if (quantity) {
+      const records = this.records.evenDistances(quantity);
+      records.forEach((record, index) => {
+        if (index === records.length - 1) {
+          return null;
+        }
+
+        return splits.push(new Split(record, records[index + 1]));
+      });
+    }
+
+    return splits;
+  }
 }
