@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Split from './split';
 
 export default class Records {
   constructor(recordsData) {
@@ -30,12 +31,28 @@ export default class Records {
   }
 
   evenDistances(quantity) {
-    return _.range(quantity + 1).map((recordIndex) => {
+    const newRecordsData = _.range(quantity + 1).map((recordIndex) => {
       const targetDistance = this.lastRecord.distance * (recordIndex / quantity);
 
       return this.recordsData.sort((a, b) => (
         Math.abs(targetDistance - a.distance) - Math.abs(targetDistance - b.distance)
       ))[0];
     });
+
+    return new Records(newRecordsData);
+  }
+
+  get splits() {
+    const splits = [];
+
+    this.recordsData.forEach((record, index) => {
+      if (index === this.recordsData.length - 1) {
+        return null;
+      }
+
+      return splits.push(new Split(record, this.recordsData[index + 1]));
+    });
+
+    return splits;
   }
 }
