@@ -30,14 +30,28 @@ export default class Records {
     return this.recordsData.sort((a, b) => a.distance - b.distance);
   }
 
+  recordClosestToDistance(targetDistance) {
+    return this.recordsData.sort((a, b) => (
+      Math.abs(targetDistance - a.distance) - Math.abs(targetDistance - b.distance)
+    ))[0];
+  }
+
   evenDistances(quantity) {
     const newRecordsData = _.range(quantity + 1).map((recordIndex) => {
       const targetDistance = this.lastRecord.distance * (recordIndex / quantity);
-
-      return this.recordsData.sort((a, b) => (
-        Math.abs(targetDistance - a.distance) - Math.abs(targetDistance - b.distance)
-      ))[0];
+      return this.recordClosestToDistance(targetDistance);
     });
+
+    return new Records(newRecordsData);
+  }
+
+  specifiedDistances({ distance }) {
+    const newRecordsData = _.range(0, this.lastRecord.distance, distance)
+      .map(targetDistance => this.recordClosestToDistance(targetDistance));
+
+    if (newRecordsData[newRecordsData.length - 1] !== this.lastRecord) {
+      newRecordsData.push(this.lastRecord);
+    }
 
     return new Records(newRecordsData);
   }

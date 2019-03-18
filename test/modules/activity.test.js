@@ -39,7 +39,7 @@ test('formats second half split distance', () => {
 });
 
 test('returns 2 splits', () => {
-  const splits = activity.splits({ quantity: 2 });
+  const splits = activity.evenDistanceSplits({ quantity: 2 });
   expect(splits.length).toBe(2);
   expect(splits[0].seconds).toBe(686);
   expect(splits[0].distance).toBeCloseTo(1.16);
@@ -48,7 +48,7 @@ test('returns 2 splits', () => {
 });
 
 test('returns 3 splits', () => {
-  const splits = activity.splits({ quantity: 3 });
+  const splits = activity.evenDistanceSplits({ quantity: 3 });
   expect(splits.length).toBe(3)
   expect(splits[0].seconds).toBe(489);
   expect(splits[0].distance).toBeCloseTo(0.77);
@@ -56,4 +56,19 @@ test('returns 3 splits', () => {
   expect(splits[1].distance).toBeCloseTo(0.78);
   expect(splits[2].seconds).toBe(391);
   expect(splits[2].distance).toBeCloseTo(0.77);
+});
+
+test('returns 1/2 mile splits', () => {
+  const splits = activity.specifiedDistanceSplits({ distance: 0.5, units: "mi" });
+  expect(splits.length).toBe(5);
+  expect(splits[0].seconds).toBe(343);
+  expect(splits[0].distance).toBeCloseTo(0.5);
+  expect(splits[1].seconds).toBe(260);
+  expect(splits[1].distance).toBeCloseTo(0.5);
+  expect(splits[2].seconds).toBe(258);
+  expect(splits[2].distance).toBeCloseTo(0.5);
+  expect(splits[3].seconds).toBe(256);
+  expect(splits[3].distance).toBeCloseTo(0.5);
+  expect(splits[4].seconds).toBe(162);
+  expect(splits[4].distance).toBeCloseTo(0.32);
 });

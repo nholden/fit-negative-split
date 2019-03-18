@@ -44,7 +44,11 @@ export default class Activity {
     return `${_.round(this.secondHalfSplit.distance, 2)} mi`;
   }
 
-  splits({ quantity }) {
+  evenDistanceSplits({ quantity }) {
     return this.records.evenDistances(quantity).splits;
+  }
+
+  specifiedDistanceSplits({ distance }) {
+    return this.records.specifiedDistances({ distance }).splits;
   }
 }

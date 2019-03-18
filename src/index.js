@@ -11,25 +11,35 @@ const distanceRadio = document.getElementById('js-distance-radio');
 const quantityFieldsDiv = document.getElementById('js-quantity-fields');
 const distanceFieldsDiv = document.getElementById('js-distance-fields');
 const quantityInput = document.getElementById('js-quantity');
+const distanceInput = document.getElementById('js-distance');
 const calculateButton = document.getElementById('js-calculate-button');
 
 function updateResults() {
+  let tableRows = [];
+
   if (quantityRadio.checked) {
-    const tableRows = window
+    tableRows = window
       .activity
-      .splits({ quantity: parseInt(quantityInput.value, 10) })
+      .evenDistanceSplits({ quantity: parseInt(quantityInput.value, 10) })
       .map(split => (
         `<tr><td>${_.round(split.distance, 2)} mi</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
       ));
-    dataOutputDiv.innerHTML = `<table>
-        <tr>
-          <th>Distance</th>
-          <th>Time</th>
-        </tr>
-        ${tableRows.join('')}
-      </table>`;
-    dataOutputDiv.classList.remove('hidden');
+  } else if (distanceRadio.checked) {
+    tableRows = window
+      .activity
+      .specifiedDistanceSplits({ distance: parseInt(distanceInput.value, 10) })
+      .map(split => (
+        `<tr><td>${_.round(split.distance, 2)} mi</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
+      ));
   }
+  dataOutputDiv.innerHTML = `<table>
+      <tr>
+        <th>Distance</th>
+        <th>Time</th>
+      </tr>
+      ${tableRows.join('')}
+    </table>`;
+  dataOutputDiv.classList.remove('hidden');
 }
 
 function updateFileUploadCopy() {
