@@ -6,6 +6,9 @@ const fileUploadTarget = document.getElementById('js-file-upload-target');
 const fileUploadInput = document.getElementById('js-file-upload-input');
 const fileUploadStatusSpan = document.getElementById('js-file-upload-status');
 const dataOutputDiv = document.getElementById('js-data-output');
+const unitsOutputSpan = document.getElementById('js-units-output');
+const milesRadio = document.getElementById('js-miles-radio');
+const kilometersRadio = document.getElementById('js-kilometers-radio');
 const quantityRadio = document.getElementById('js-quantity-radio');
 const distanceRadio = document.getElementById('js-distance-radio');
 const quantityFieldsDiv = document.getElementById('js-quantity-fields');
@@ -14,22 +17,20 @@ const quantityInput = document.getElementById('js-quantity');
 const distanceInput = document.getElementById('js-distance');
 const calculateButton = document.getElementById('js-calculate-button');
 
-function updateResults() {
+function updateResults(activity) {
   let tableRows = [];
 
   if (quantityRadio.checked) {
-    tableRows = window
-      .activity
+    tableRows = activity
       .evenDistanceSplits({ quantity: parseInt(quantityInput.value, 10) })
       .map(split => (
-        `<tr><td>${_.round(split.distance, 2)} mi</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
+        `<tr><td>${_.round(split.distance, 1)} ${window.units}</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
       ));
   } else if (distanceRadio.checked) {
-    tableRows = window
-      .activity
+    tableRows = activity
       .specifiedDistanceSplits({ distance: parseInt(distanceInput.value, 10) })
       .map(split => (
-        `<tr><td>${_.round(split.distance, 2)} mi</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
+        `<tr><td>${_.round(split.distance, 1)} ${window.units}</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
       ));
   }
   dataOutputDiv.innerHTML = `<table>
@@ -43,7 +44,7 @@ function updateResults() {
 }
 
 function updateFileUploadCopy() {
-  if (window.activity) {
+  if (window.file) {
     fileUploadStatusSpan.innerHTML = '✅ Got it!';
   } else {
     fileUploadStatusSpan.innerHTML = 'Drop your .FIT file';
@@ -65,7 +66,7 @@ function disableButton() {
 }
 
 function updateButtonStatus() {
-  if (window.activity) {
+  if (window.file) {
     enableButton();
   } else {
     disableButton();
@@ -75,13 +76,17 @@ function updateButtonStatus() {
 function updateActivity(file) {
   fileUploadStatusSpan.innerHTML = 'Uploading...';
   disableButton();
-  new FitFile(file).fetchActivity((fetchedActivity) => {
-    window.activity = fetchedActivity;
-    setTimeout(() => {
-      updateFileUploadCopy();
-      updateButtonStatus();
-    }, 150);
-  });
+
+  setTimeout(() => {
+    window.file = file;
+    updateFileUploadCopy();
+    updateButtonStatus();
+  }, 150);
+}
+
+function updateUnits(changeEvent) {
+  window.units = changeEvent.target.value;
+  unitsOutputSpan.innerHTML = changeEvent.target.value;
 }
 
 fileUploadTarget.addEventListener('dragenter', (dragenterEvent) => {
@@ -119,6 +124,9 @@ fileUploadInput.addEventListener('change', (changeEvent) => {
   updateActivity(changeEvent.target.files[0]);
 });
 
+milesRadio.addEventListener('change', updateUnits);
+kilometersRadio.addEventListener('change', updateUnits);
+
 quantityRadio.addEventListener('change', () => {
   quantityFieldsDiv.classList.remove('hidden');
   distanceFieldsDiv.classList.add('hidden');
@@ -130,5 +138,5 @@ distanceRadio.addEventListener('change', () => {
 });
 
 calculateButton.addEventListener('click', () => {
-  updateResults();
+  new FitFile({ file: window.file, units: window.units }).fetchActivity(updateResults);
 });

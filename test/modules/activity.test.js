@@ -59,7 +59,7 @@ test('returns 3 splits', () => {
 });
 
 test('returns 1/2 mile splits', () => {
-  const splits = activity.specifiedDistanceSplits({ distance: 0.5, units: "mi" });
+  const splits = activity.specifiedDistanceSplits({ distance: 0.5 });
   expect(splits.length).toBe(5);
   expect(splits[0].seconds).toBe(343);
   expect(splits[0].distance).toBeCloseTo(0.5);

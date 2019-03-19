@@ -25,34 +25,46 @@
         </section>
 
         <section class="py-4">
-          <h2 class="py-2">Step 2: Choose splits</h2>
+          <h2 class="py-2">Step 2: Choose units</h2>
           <fieldset class="py-2">
-            <legend>Let me specify...</legend>
+            <legend>Give me results in…</legend>
+            <div>
+              <input type="radio" name="units" id="js-miles-radio" value="mi">
+              <label class="pl-1" for="js-miles-radio">miles</label>
+            </div>
+            <div>
+              <input type="radio" name="units" id="js-kilometers-radio" value="km">
+              <label class="pl-1" for="js-kilometers-radio">kilometers</label>
+            </div>
+          </fieldset>
+        </section>
+
+        <section class="py-4">
+          <h2 class="py-2">Step 3: Choose splits</h2>
+          <fieldset class="py-2">
+            <legend>Let me specify…</legend>
             <div>
               <input type="radio" name="splits-type" id="js-quantity-radio">
-              <label for="js-quantity-radio">The number of splits</label>
+              <label class="pl-1" for="js-quantity-radio">The number of splits</label>
             </div>
             <div>
               <input type="radio" name="splits-type" id="js-distance-radio">
-              <label for="js-distance-radio">The distance of each split</label>
+              <label class="pl-1" for="js-distance-radio">The distance of each split</label>
             </div>
           </fieldset>
           <div id="js-quantity-fields" class="hidden py-2">
             <label for="js-quantity" class="block">How many splits?</label>
-            <input type="number" id="js-quantity" min="0" autocomplete="off">
+            <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-quantity" min="0" autocomplete="off">
           </div>
           <div id="js-distance-fields" class="hidden py-2">
             <label for="js-distance" class="block">How long should each split be?</label>
-            <input type="number" id="js-distance" min="0" autocomplete="off">
-            <select id="js-units" aria-label="units">
-              <option>miles</option>
-              <option>kilometers</option>
-            </select>
+            <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-distance" min="0" autocomplete="off">
+            <span class="pl-1" id="js-units-output"></span>
           </div>
         </section>
 
         <section class="py-4">
-          <h2 class="py-2">Step 3: See your results</h2>
+          <h2 class="py-2">Step 4: See your results</h2>
           <button id="js-calculate-button" class="w-full my-2 py-4 bg-blue-400 rounded shadow-md text-white font-semibold opacity-50 cursor-not-allowed" disabled>
             Calculate splits
           </button>

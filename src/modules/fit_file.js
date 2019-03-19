@@ -2,15 +2,16 @@ import EasyFit from 'easy-fit';
 import Activity from './activity';
 
 export default class FitFile {
-  constructor(file) {
+  constructor({ file, units }) {
     this.file = file;
+    this.units = units;
   }
 
   fetchActivity(callback) {
     const easyFit = new EasyFit({
       force: true,
       speedUnit: 'mph',
-      lengthUnit: 'mi',
+      lengthUnit: this.units,
       temperatureUnit: 'fahrenheit',
       elapsedRecordField: true,
       mode: 'list',
