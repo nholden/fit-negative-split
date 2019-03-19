@@ -6,71 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
   <body>
-    <div class="h-screen flex items-center justify-center">
-      <div class="bg-white p-8 rounded-lg shadow-lg max-w-md text-black leading-normal">
-        <h1 class="py-4">
-          FIT Splits
-        </h1>
+    <div class="bg-white p-8 my-8 rounded-lg shadow-lg max-w-md text-black leading-normal mx-auto">
+      <h1 class="py-4">
+        FIT Splits
+      </h1>
 
-        <section class="py-4">
-          <h2>Step 1: Upload a .FIT file</h2>
-          <p class="py-2">
-            Upload a .FIT file from your Garmin and learn about how the first half
-            of your activity compared to the second half.
-          </p>
-          <div id="js-file-upload-target" class="text-grey-500 text-sm font-light cursor-pointer text-center w-full my-2 p-10 bg-yellow-1000 hover:bg-yellow-900 border-2 border-dashed border-blue-400 rounded shadow-inner">
-            <span id="js-file-upload-status">Drop your .FIT file</span>
+      <section class="py-4">
+        <h2>Step 1: Upload a .FIT file</h2>
+        <p class="py-2">
+          Upload a .FIT file from your Garmin and learn about how the first half
+          of your activity compared to the second half.
+        </p>
+        <div id="js-file-upload-target" class="text-grey-500 text-sm font-light cursor-pointer text-center w-full my-2 p-10 bg-yellow-1000 hover:bg-yellow-900 border-2 border-dashed border-blue-400 rounded shadow-inner">
+          <span id="js-file-upload-status">Drop your .FIT file</span>
+        </div>
+        <input type="file" id="js-file-upload-input" class="hidden">
+      </section>
+
+      <section class="py-4">
+        <h2 class="py-2">Step 2: Choose units</h2>
+        <fieldset class="py-2">
+          <legend>Give me results in…</legend>
+          <div>
+            <input type="radio" name="units" id="js-miles-radio" value="mi">
+            <label class="pl-1" for="js-miles-radio">miles</label>
           </div>
-          <input type="file" id="js-file-upload-input" class="hidden">
-        </section>
-
-        <section class="py-4">
-          <h2 class="py-2">Step 2: Choose units</h2>
-          <fieldset class="py-2">
-            <legend>Give me results in…</legend>
-            <div>
-              <input type="radio" name="units" id="js-miles-radio" value="mi">
-              <label class="pl-1" for="js-miles-radio">miles</label>
-            </div>
-            <div>
-              <input type="radio" name="units" id="js-kilometers-radio" value="km">
-              <label class="pl-1" for="js-kilometers-radio">kilometers</label>
-            </div>
-          </fieldset>
-        </section>
-
-        <section class="py-4">
-          <h2 class="py-2">Step 3: Choose splits</h2>
-          <fieldset class="py-2">
-            <legend>Let me specify…</legend>
-            <div>
-              <input type="radio" name="splits-type" id="js-quantity-radio">
-              <label class="pl-1" for="js-quantity-radio">The number of splits</label>
-            </div>
-            <div>
-              <input type="radio" name="splits-type" id="js-distance-radio">
-              <label class="pl-1" for="js-distance-radio">The distance of each split</label>
-            </div>
-          </fieldset>
-          <div id="js-quantity-fields" class="hidden py-2">
-            <label for="js-quantity" class="block">How many splits?</label>
-            <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-quantity" min="0" autocomplete="off">
+          <div>
+            <input type="radio" name="units" id="js-kilometers-radio" value="km">
+            <label class="pl-1" for="js-kilometers-radio">kilometers</label>
           </div>
-          <div id="js-distance-fields" class="hidden py-2">
-            <label for="js-distance" class="block">How long should each split be?</label>
-            <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-distance" min="0" autocomplete="off">
-            <span class="pl-1" id="js-units-output"></span>
-          </div>
-        </section>
+        </fieldset>
+      </section>
 
-        <section class="py-4">
-          <h2 class="py-2">Step 4: See your results</h2>
-          <button id="js-calculate-button" class="w-full my-2 py-4 bg-blue-400 rounded shadow-md text-white font-semibold opacity-50 cursor-not-allowed" disabled>
-            Calculate splits
-          </button>
-          <div id="js-data-output" class="py-2 hidden"></div>
-        </section>
-      </div>
+      <section class="py-4">
+        <h2 class="py-2">Step 3: Choose splits</h2>
+        <fieldset class="py-2">
+          <legend>Let me specify…</legend>
+          <div>
+            <input type="radio" name="splits-type" id="js-quantity-radio">
+            <label class="pl-1" for="js-quantity-radio">The number of splits</label>
+          </div>
+          <div>
+            <input type="radio" name="splits-type" id="js-distance-radio">
+            <label class="pl-1" for="js-distance-radio">The distance of each split</label>
+          </div>
+        </fieldset>
+        <div id="js-quantity-fields" class="hidden py-2">
+          <label for="js-quantity" class="block">How many splits?</label>
+          <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-quantity" min="0" autocomplete="off">
+        </div>
+        <div id="js-distance-fields" class="hidden py-2">
+          <label for="js-distance" class="block">How long should each split be?</label>
+          <input class="w-24 my-2 py-2 pl-3 rounded text-right" type="number" id="js-distance" min="0" autocomplete="off">
+          <span class="pl-1" id="js-units-output"></span>
+        </div>
+      </section>
+
+      <section class="py-4">
+        <h2 class="py-2">Step 4: See your results</h2>
+        <button id="js-calculate-button" class="w-full my-2 py-4 bg-blue-400 rounded shadow-md text-white font-semibold opacity-50 cursor-not-allowed" disabled>
+          Calculate splits
+        </button>
+        <div id="js-data-output" class="py-2 hidden"></div>
+      </section>
     </div>
   </body>
 </html>
