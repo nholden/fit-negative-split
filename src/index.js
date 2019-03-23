@@ -17,29 +17,40 @@ const quantityInput = document.getElementById('js-quantity');
 const distanceInput = document.getElementById('js-distance');
 const calculateButton = document.getElementById('js-calculate-button');
 
+function splitRow(split, index) {
+  const rowBackgroundClass = index % 2 === 0 ? 'bg-yellow-1000' : 'bg-yellow-900';
+
+  return `
+    <tr class="${rowBackgroundClass} hover:bg-yellow-800">
+      <td class="p-3">${index + 1}</td>
+      <td class="p-3">${_.round(split.distance, 1)} <span class="text-sm">${window.units}</span></td>
+      <td class="p-3">${new Seconds(split.seconds).formattedTime}</td>
+    </tr>
+  `;
+}
+
 function updateResults(activity) {
   let tableRows = [];
 
   if (quantityRadio.checked) {
     tableRows = activity
       .evenDistanceSplits({ quantity: parseInt(quantityInput.value, 10) })
-      .map(split => (
-        `<tr><td>${_.round(split.distance, 1)} ${window.units}</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
-      ));
+      .map(splitRow);
   } else if (distanceRadio.checked) {
     tableRows = activity
       .specifiedDistanceSplits({ distance: parseInt(distanceInput.value, 10) })
-      .map(split => (
-        `<tr><td>${_.round(split.distance, 1)} ${window.units}</td><td>${new Seconds(split.seconds).formattedTime}</td></tr>`
-      ));
+      .map(splitRow);
   }
-  dataOutputDiv.innerHTML = `<table>
+  dataOutputDiv.innerHTML = `
+    <table class="w-full text-right bg-yellow-800 cursor-default shadow-md">
       <tr>
-        <th>Distance</th>
-        <th>Time</th>
+        <th class="p-3 text-blue-200">Split</th>
+        <th class="p-3 text-blue-200">Distance</th>
+        <th class="p-3 text-blue-200">Time</th>
       </tr>
       ${tableRows.join('')}
-    </table>`;
+    </table>
+  `;
   dataOutputDiv.classList.remove('hidden');
 }
 
