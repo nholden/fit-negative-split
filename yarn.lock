@@ -2118,9 +2118,9 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-easy-fit@^0.0.8:
+easy-fit@nholden/easy-fit:
   version "0.0.8"
-  resolved "https://registry.yarnpkg.com/easy-fit/-/easy-fit-0.0.8.tgz#90a1c13387dd7c40c324445fec7be5e53d0eecfd"
+  resolved "https://codeload.github.com/nholden/easy-fit/tar.gz/043928e9f24a4d2f789492c52ef2727c5b455fcc"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"

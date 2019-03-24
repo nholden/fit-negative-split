@@ -6,7 +6,7 @@
   "author": "Nick Holden <nick.r.holden@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "easy-fit": "^0.0.8",
+    "easy-fit": "nholden/easy-fit",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

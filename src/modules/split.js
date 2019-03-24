@@ -11,7 +11,7 @@ export default class Split {
   }
 
   get seconds() {
-    return this.endRecord.elapsed_time - this.startRecord.elapsed_time;
+    return this.endRecord.timer_time - this.startRecord.timer_time;
   }
 
   get distance() {
