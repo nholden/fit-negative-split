@@ -38,7 +38,7 @@ function updateResults(activity) {
       .map(splitRow);
   } else if (distanceRadio.checked) {
     tableRows = activity
-      .specifiedDistanceSplits({ distance: parseInt(distanceInput.value, 10) })
+      .specifiedDistanceSplits({ distance: parseFloat(distanceInput.value) })
       .map(splitRow);
   }
   dataOutputDiv.innerHTML = `
